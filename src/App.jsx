@@ -31,6 +31,7 @@ function Main() {
           <RatingCard
             setRating={setRating}
             onSubmission={handleSubmit}
+            rating={rating}
             error={error}
           />
         )}
@@ -39,7 +40,7 @@ function Main() {
   );
 }
 
-function RatingCard({ setRating, onSubmission, error }) {
+function RatingCard({ setRating, onSubmission, error, rating }) {
   return (
     <div className="bg-[radial-gradient(100%_100%_at_50%_0%,var(--color-gradient-1)_0%,var(--color-gradient-2)_100%)] rounded-xl p-6 sm:p-8 w-full flex-col gap-4 flex">
       <RatingCardText />
@@ -47,6 +48,7 @@ function RatingCard({ setRating, onSubmission, error }) {
         setRating={setRating}
         onSubmission={onSubmission}
         error={error}
+        rating={rating}
       />
     </div>
   );
@@ -68,7 +70,7 @@ function RatingCardText() {
   );
 }
 
-function RatingCardForm({ setRating, onSubmission, error }) {
+function RatingCardForm({ setRating, onSubmission, error, rating }) {
   return (
     <form onSubmit={onSubmission}>
       <fieldset className="grid gap-3">
@@ -78,7 +80,7 @@ function RatingCardForm({ setRating, onSubmission, error }) {
             <RatingCardInputs key={i} value={i + 1} onSetRating={setRating} />
           ))}
         </div>
-        <RatingCardErrorState error={error} />
+        <RatingCardErrorState error={error} rating={rating} />
       </fieldset>
 
       <RatingCardSubmitButton />
@@ -105,10 +107,10 @@ function RatingCardInputs({ value, onSetRating }) {
   );
 }
 
-function RatingCardErrorState({ error }) {
+function RatingCardErrorState({ error, rating }) {
   return (
     <p aria-live="assertive" id="errorMessage" className="text-red-300">
-      {error}
+      {rating ? "" : error}
     </p>
   );
 }
