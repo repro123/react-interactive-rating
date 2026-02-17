@@ -1,46 +1,6 @@
-import { useState } from "react";
-import icon from "./images/icon-star.svg";
-import illustration from "./images/illustration-thank-you.svg";
+import icon from "../images/icon-star.svg";
 
-function App() {
-  return (
-    <div className="min-h-dvh bg-bodyBg text-cardText flex flex-col items-center justify-center font-ovepass leading-normal">
-      <Main />
-      <Footer />
-    </div>
-  );
-}
-
-function Main() {
-  const [rating, setRating] = useState(null);
-  const [error, setError] = useState("");
-  const [summary, setSummary] = useState(false);
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    rating ? setError("") : setError("Please select a rating");
-    rating && setSummary(true);
-  }
-
-  return (
-    <main className="grow grid place-items-center px-4">
-      <div className="w-full max-w-104">
-        {summary ? (
-          <ThankYouCard rating={rating} />
-        ) : (
-          <RatingCard
-            setRating={setRating}
-            onSubmission={handleSubmit}
-            rating={rating}
-            error={error}
-          />
-        )}
-      </div>
-    </main>
-  );
-}
-
-function RatingCard({ setRating, onSubmission, error, rating }) {
+export default function RatingCard({ setRating, onSubmission, error, rating }) {
   return (
     <div className="bg-[radial-gradient(100%_100%_at_50%_0%,var(--color-gradient-1)_0%,var(--color-gradient-2)_100%)] rounded-xl p-6 sm:p-8 w-full flex-col gap-4 flex">
       <RatingCardText />
@@ -126,47 +86,3 @@ function RatingCardSubmitButton() {
     </button>
   );
 }
-
-function ThankYouCard({ rating }) {
-  return (
-    <div className="bg-[radial-gradient(100%_100%_at_50%_0%,var(--color-gradient-1)_0%,var(--color-gradient-2)_100%)] rounded-xl p-6 sm:p-8 w-full flex-col gap-4 flex items-center justify-center text-center">
-      <img src={illustration} alt="" />
-      <p className="mt-4 text-primary-orange rounded-full bg-cardBg py-2 px-4">
-        You selected {rating} out of 5
-      </p>
-      <p className="text-3xl text-cardHead">Thank you!</p>
-      <p>
-        We appreciate you taking the time to give a rating. If you ever need
-        more support, don’t hesitate to get in touch!
-      </p>
-    </div>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="mt-auto text-center text-sm sm:text-base pb-2 text-cardText">
-      <p className="attribution">
-        Challenge by
-        <a
-          href="https://www.frontendmentor.io?ref=challenge"
-          target="_blank"
-          className="text-primary-orange underline hover:no-underline"
-        >
-          Frontend Mentor
-        </a>
-        . Coded by
-        <a
-          href="https://github.com/repro123/"
-          className="text-primary-orange underline hover:no-underline"
-          target="_blank"
-        >
-          Bello Ibrahim
-        </a>
-        .
-      </p>
-    </footer>
-  );
-}
-
-export default App;
